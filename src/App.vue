@@ -1,5 +1,5 @@
 <template lang="pug">
-#app
+#app.intro
   intro-numpad
   console
 </template>
@@ -27,6 +27,9 @@ module.exports =
 html, body, #app-mount
   min-height 100vh
   min-width 100vw
+  display flex
+  justify-content center
+  align-items center
 
 #app
   font-family 'Titillium Web', Helvetica, Arial, sans-serif
@@ -36,6 +39,15 @@ html, body, #app-mount
   color $page-foreground-color
   font-size 200%
   display flex
-  min-height 100vh
-  min-width 100vw
+  justify-content center
+  align-items center
+  align-self center
+
+  &.intro
+    flex-direction column
+    padding 1rem
+    max-width 16rem
+    margin 0 auto
+
+
 </style>
