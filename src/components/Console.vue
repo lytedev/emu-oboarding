@@ -1,16 +1,25 @@
 <template lang="pug">
 .console
   transition(appear v-on:enter="greet")
-    textarea(disabled readonly) {{ text }}{{ pipe }}
+    textarea#console-textarea(disabled readonly) {{ text }}{{ pipe }}
+  //- p {{ queue }}
 </template>
 
 <script lang="coffee">
+mutationTypes = require '../../store/mutation-types.coffee'
+
+console.log mutationTypes
+
 module.exports =
   props: []
+  computed:
+    text: ->
+      this.textareaElement.scrollTop = this.textareaElement.scrollHeight
+      this.$store.state.console.text
+    queue: ->
+      this.$store.state.console.queue
   data: ->
-    stuff: 9
-    text: ''
-    queue: ''
+    textareaElement: false
     lastTimestamp: 0
     pipe: '|'
     pipeTime: 0
@@ -18,15 +27,12 @@ module.exports =
     timeouts: []
     intervals: []
   methods:
-    test: ->
-      null
     update: (timestamp) ->
       dt = timestamp - this.lastTimestamp
       this.lastTimestamp = timestamp
 
       if this.queue != ''
-        this.text += this.queue.substring 0, 1
-        this.queue = this.queue.substring 1
+        this.$store.commit mutationTypes.CONSOLE_UPDATE_CHARS, { chars: 1 }
         this.pipe = '|'
         this.pipeTime = 0
       else
@@ -40,40 +46,13 @@ module.exports =
 
       requestAnimationFrame this.update
     greet: ->
-      msgTime = 2000
-      dotPeriod = 400
+      this.textareaElement = document.getElementById "console-textarea"
+      msgTime = 0
 
       that = this
       this.timeouts.push setTimeout ->
-        that.addMessage "Please submit your PIN."
+        that.addMessage "Please submit your PIN or swipe access card."
       , msgTime
-      this.timeouts.push setTimeout ->
-        that.addMessage "Awaiting authorization"
-      , msgTime * 1.2
-
-      untilSubmission = ->
-        that.intervals.push setInterval ->
-          that.timeouts.push setTimeout ->
-            that.addChars "."
-          , dotPeriod * 1
-          that.timeouts.push setTimeout ->
-            that.addChars "."
-          , dotPeriod * 2
-          that.timeouts.push setTimeout ->
-            that.addChars "."
-          , dotPeriod * 3
-          that.timeouts.push setTimeout ->
-            that.deleteChars 1
-          , dotPeriod * 4
-          that.timeouts.push setTimeout ->
-            that.deleteChars 1
-          , dotPeriod * 5
-          that.timeouts.push setTimeout ->
-            that.deleteChars 1
-          , dotPeriod * 6
-        , dotPeriod * 6
-
-      this.timeouts.push setTimeout untilSubmission, ((msgTime * 1.2) - (dotPeriod * 6))
 
       requestAnimationFrame this.update
 
@@ -84,17 +63,15 @@ module.exports =
         clearInterval i
 
     addMessage: (msg) ->
-      if this.text != ''
-        this.queue += "\n"
-      this.queue += msg
+      this.$store.commit mutationTypes.CONSOLE_ADD_LINE_TO_QUEUE, { text: msg }
     addChars: (msg) ->
-      this.queue += msg
+      this.$store.commit mutationTypes.CONSOLE_ADD_LINE_TO_QUEUE, { text: msg }
     deleteChars: (n) ->
-      this.text = this.text.substring 0, this.text.length - 1
+      this.$store.commit mutationTypes.CONSOLE_DELETE_CHARS, { chars: 1 }
       this.pipeTime = 0
       this.pipe = '|'
     clear: ->
-      this.text = ""
+      this.$store.commit mutationTypes.CONSOLE_CLEAR_TEXT
 
   activate: (done) ->
     console.log "Console Activate"
@@ -117,5 +94,6 @@ module.exports =
   textarea
     resize none
     width 100%
-    height 6rem
+    height 6.66rem
+    overflow-y hidden
 </style>

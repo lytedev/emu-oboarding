@@ -5,6 +5,7 @@
 </template>
 
 <script lang="coffee">
+mutationTypes = require '../../store/mutation-types.coffee'
 module.exports =
   name: 'hello'
   data: ->
@@ -31,9 +32,10 @@ module.exports =
     pinBackspace: ->
       this.pin = this.pin.substring(0, this.pin.length - 1)
     pinSubmit: ->
-      this.$emit 'console-add-message', "Submitted #{this.pin.length * '*'}."
+      if this.pin == ''
+        return
+      this.$store.commit mutationTypes.CONSOLE_ADD_LINE_TO_QUEUE, { text: "Submitted #{new Array(this.pin.length + 1).join('*')}" }
       this.pin = ''
-      null
 </script>
 
 <style lang="stylus">

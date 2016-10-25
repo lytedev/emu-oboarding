@@ -5,14 +5,18 @@
   "author": "mjey.tk",
   "private": true,
   "scripts": {
-    "dev": "node build/dev-server.js",
+    "server": "coffee server/index.coffee",
+    "dev": "coffee build/dev-server.coffee",
     "build": "node build/build.js",
     "unit": "karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
-    "vue": "^2.0.1"
+    "express": "^4.14.0",
+    "express-ws": "^2.0.0",
+    "vue": "^2.0.1",
+    "ws": "^1.1.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",

@@ -3,17 +3,13 @@ MainStyles = require './styles/main.styl'
 Vue = require 'vue'
 Vuex = require 'vuex'
 VueRouter = require 'vue-router'
-App = require './App'
 
 Vue.use VueRouter
 Vue.use Vuex
 
-store = new Vuex.Store
-	state:
-		count: 0
-	mutations:
-		increment: (state) ->
-			state.count++
+App = require './App.vue'
+store = require '../store/index.coffee'
+
 
 routes = [
 	{ path: '/', component: App }
@@ -25,4 +21,7 @@ router = new VueRouter
 
 app = new Vue
 	router: router
+	store: store
 .$mount '#app-mount'
+
+console.log store

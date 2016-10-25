@@ -49,7 +49,7 @@ module.exports = {
       },
       {
         test: /\.coffee$/,
-        loader: 'coffee'
+        loader: 'babel!coffee'
 			},
 			{
         test: /\.js$/,
