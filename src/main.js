@@ -11,7 +11,8 @@ var routes = [
 ]
 
 var router = new VueRouter({
-	routes
+	mode: 'history',
+	routes: routes
 })
 
 /* eslint-disable no-new */

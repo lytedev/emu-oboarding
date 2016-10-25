@@ -1,5 +1,48 @@
 @import '_variables'
 
+*
+*::before
+*::after
+	box-sizing border-box
+
 body
 	background $page-background-color
 	color $page-foreground-color
+
+textarea, input { outline: none; }
+
+input, textarea, .btn
+	display block
+	width 100%
+	outline none
+
+	font-family inherit
+	font-size inherit
+	color inherit
+	border solid 0.2rem #333
+	background #222
+	border-radius 0.2rem
+	padding 0.5rem
+
+	transition border-color 0.2s ease
+
+input[type="text"], textarea
+	&:focus, &.focus
+		border-color $brand-primary-color
+
+button, .btn
+	&:active, &.active
+		border-color $brand-primary-color
+
+	-webkit-tap-highlight-color alpha($brand-primary-color, 0.5)
+	tap-highlight-color alpha($brand-primary-color, 0.5)
+
+	-webkit-touch-callout none
+	-webkit-user-select none
+	-khtml-user-select none
+	-moz-user-select none
+	-o-user-select none
+	user-select none
+
+textarea
+	font-size 50%
