@@ -7,12 +7,15 @@ VueRouter = require 'vue-router'
 Vue.use VueRouter
 Vue.use Vuex
 
-App = require './App.vue'
+Intro = require './Intro.vue'
+Loading = require './Loading.vue'
+Offline = require './Offline.vue'
 store = require '../store/index.coffee'
 
-
 routes = [
-	{ path: '/', component: App }
+	{ path: '/pin', component: Intro }
+	{ path: '/offline', component: Intro }
+	{ path: '/', component: Loading }
 ]
 
 router = new VueRouter
@@ -24,4 +27,5 @@ app = new Vue
 	store: store
 .$mount '#app-mount'
 
-console.log store
+require './ws.coffee'
+require './analytics.coffee'

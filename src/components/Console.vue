@@ -8,8 +8,6 @@
 <script lang="coffee">
 mutationTypes = require '../../store/mutation-types.coffee'
 
-console.log mutationTypes
-
 module.exports =
   props: []
   computed:
@@ -47,14 +45,13 @@ module.exports =
       requestAnimationFrame this.update
     greet: ->
       this.textareaElement = document.getElementById "console-textarea"
-      msgTime = 0
-
-      that = this
-      this.timeouts.push setTimeout ->
-        that.addMessage "Please submit your PIN or swipe access card."
-      , msgTime
-
+      this.addMessage "Please submit your PIN or swipe access card."
+      this.addMessage "Running initial systems diagnostics..."
       requestAnimationFrame this.update
+      this.websocketCheck()
+
+    websocketCheck: ->
+      null
 
     clearAllTimeoutsAndIntervals: ->
       for i of this.timeouts
@@ -96,4 +93,9 @@ module.exports =
     width 100%
     height 6.66rem
     overflow-y hidden
+    overflow-wrap break-word
+    word-wrap break-word
+    word-break break-all
+    word-break break-word
+    hyphens auto
 </style>
