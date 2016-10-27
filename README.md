@@ -23,3 +23,9 @@ npm run e2e
 # run all tests
 npm test
 ```
+
+## To Do
+
+* Finish email signup thing
+* Email signup should install "app" to phone and enable notifications
+* Test notification install system on phone

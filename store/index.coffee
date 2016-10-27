@@ -4,6 +4,15 @@ import * as mutationTypes from './mutation-types.coffee'
 
 store = new Vuex.Store
 	modules:
+		intro:
+			state:
+				entered: false
+				pin: ''
+			mutations:
+				"#{mutationTypes.INTRO_ENTER}": (state, mutation) ->
+					state.entered = true
+				"#{mutationTypes.INTRO_SET_PIN}": (state, mutation) ->
+					state.pin = mutation.pin
 		server:
 			state:
 				status: 'loading'
@@ -26,6 +35,8 @@ store = new Vuex.Store
 					if state.text != '' or state.queue != ''
 						mutation.text = "\n" + mutation.text
 					state.queue += mutation.text
+				"#{mutationTypes.CONSOLE_ADD_TO_QUEUE}": (state, mutation) ->
+					state.queue += mutation.text
 				"#{mutationTypes.CONSOLE_UPDATE_CHARS}": (state, mutation) ->
 					state.text += state.queue.substring 0, mutation.chars
 					state.queue = state.queue.substring mutation.chars
@@ -33,11 +44,15 @@ store = new Vuex.Store
 					state.text = state.text.substring(0, state.text.length - mutation.chars)
 				"#{mutationTypes.CONSOLE_CLEAR_TEXT}": (state) ->
 					state.text = ''
+				"#{mutationTypes.CONSOLE_CLEAR_QUEUE}": (state) ->
+					state.queue = ''
 	getters:
 		status: (state) ->
 			state.server.status
 		queue: (state) ->
 			state.console.queue
+		introEntered: (state) ->
+			state.intro.entered
 		text: (state) ->
 			state.console.text
 

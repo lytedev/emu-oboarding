@@ -4,18 +4,28 @@ Vue = require 'vue'
 Vuex = require 'vuex'
 VueRouter = require 'vue-router'
 
+Vue.config.debug = true
+
+
 Vue.use VueRouter
 Vue.use Vuex
+
+# our websocket plugin uses the store, so it must come after we install the vuex
+# plugin
+ws = require './ws.coffee'
+Vue.use ws
 
 Intro = require './Intro.vue'
 Loading = require './Loading.vue'
 Offline = require './Offline.vue'
+Terra = require './components/Terra.vue'
 store = require '../store/index.coffee'
 
 routes = [
-	{ path: '/pin', component: Intro }
-	{ path: '/offline', component: Intro }
 	{ path: '/', component: Loading }
+	{ path: '/verification', component: Intro }
+	{ path: '/offline', component: Offline }
+	{ path: '/Terra', component: Terra }
 ]
 
 router = new VueRouter
@@ -27,5 +37,4 @@ app = new Vue
 	store: store
 .$mount '#app-mount'
 
-require './ws.coffee'
 require './analytics.coffee'
