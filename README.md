@@ -29,3 +29,4 @@ npm test
 * Finish email signup thing
 * Email signup should install "app" to phone and enable notifications
 * Test notification install system on phone
+* Escape user input backticks on the server side since it controls console commands

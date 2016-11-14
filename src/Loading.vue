@@ -14,7 +14,6 @@ require './styles/_variables.styl'
 mutationTypes = require '../store/mutation-types.coffee'
 
 IntroNumpad = require './components/IntroNumpad.vue'
-Console = require './components/Console.vue'
 
 streamerColors = [
   "#ffaa00"
@@ -264,7 +263,6 @@ module.exports =
 
   components:
     IntroNumpad: IntroNumpad
-    Console: Console
 
 </script>
 

@@ -32,15 +32,18 @@ module.exports =
       that = this
 
       # hook into the websocket messages
-      this.$ws.addEventListener 'message', (ev) ->
+      onMessage = (ev) ->
         if ev.data?
           data = JSON.parse ev.data
           if data.verification?
             that.apiCallInProgress = false
+            that.$ws.removeEventListener 'message', onMessage
             if data.verification == "accepted"
+               that.$store.commit mutationTypes.INTRO_SET_VERIFIED, { verified: true }
               that.movingOn = true
             that.pinSubmitCallback()
 
+      this.$ws.addEventListener 'message', onMessage
     pinSubmitCallback: ->
       if not this.submitting and not this.apiCallInProgress
 

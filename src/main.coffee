@@ -18,14 +18,21 @@ Vue.use ws
 Intro = require './Intro.vue'
 Loading = require './Loading.vue'
 Offline = require './Offline.vue'
+Root = require './Root.vue'
 Terra = require './components/Terra.vue'
 store = require '../store/index.coffee'
 
 routes = [
-	{ path: '/', component: Loading }
-	{ path: '/verification', component: Intro }
-	{ path: '/offline', component: Offline }
-	{ path: '/Terra', component: Terra }
+	{
+		path: '/'
+		component: Root
+		children: [
+			{ path: '/', component: Loading }
+			{ path: '/verification', component: Intro }
+			{ path: '/offline', component: Offline }
+			{ path: '/Terra', component: Terra }
+		]
+	}
 ]
 
 router = new VueRouter

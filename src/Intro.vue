@@ -3,7 +3,7 @@ transition(appear v-on:enter="load")
   #intro
     #intro-wrapper
       intro-numpad(v-if="showNumpad" v-on:verified="moveOn")
-      console(v-if="showConsole" v-on:click="tempHideConsole" initialOutputFunction="verificationOutput")
+      console(v-if="showConsole" v-on:click="tempHideConsole" initialOutputFunction="verificationOutput" v-on:preverified="moveOn")
 </template>
 
 <script lang="coffee">
@@ -19,7 +19,7 @@ module.exports =
     showConsole: true
   computed: ->
     entered: ->
-      this.$store.state.intro.entered
+      this.$store.getters.introEntered
   components:
     IntroNumpad: IntroNumpad
     Console: Console
@@ -36,15 +36,16 @@ module.exports =
         that.$router.replace '/'
         return
       setTimeout ->
+        that.showNumpad = true
         document.getElementById("slide-click-1").play()
-      , 200
+      , 18000
     moveOn: ->
       this.showNumpad = false
       this.showConsole = false
       that = this
       setTimeout ->
         that.$router.push '/Terra'
-      , 3000
+      , 1000
 </script>
 
 <style lang="stylus">
