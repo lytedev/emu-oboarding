@@ -15,7 +15,8 @@ module.exports =
       default: true
   data: ->
     visibleDots: ''
-    invisibleDots: '...'
+    # invisibleDots: '...'
+    invisibleDots: ''
 
     ellipseTimer: 0
     ellipseCycle: 400
@@ -33,15 +34,15 @@ module.exports =
           this.ellipseTimer %= this.ellipseCycle
           if this.visibleDots.length > 2
             this.visibleDots = ''
-            this.invisibleDots = '...'
+            # this.invisibleDots = '...'
           else
             this.visibleDots += '.'
             this.invisibleDots = ''
-            while this.invisibleDots.length + this.visibleDots.length < 3
-              this.invisibleDots += '.'
+            # while this.invisibleDots.length + this.visibleDots.length < 3
+              # this.invisibleDots += '.'
       else
         this.visibleDots = ""
-        this.invisibleDots = "..."
+        # this.invisibleDots = "..."
 
   mounted: -> requestAnimationFrame this.update
 </script>

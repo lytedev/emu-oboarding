@@ -29,7 +29,7 @@ module.exports =
   z-index 100000
 
 #root
-  color #fff
+  color #333
 
 .stretchy-flex-column
   text-align center
@@ -38,7 +38,7 @@ module.exports =
   justify-contents center
   align-items center
   text-align center
-  height 5em
+  height 6em
 
   & > *
     flex 1
@@ -58,7 +58,7 @@ module.exports =
 
   &.bottomslide-enter, &.bottomslide-leave-active
     transition all 1s ease
-    bottom -50vh
+    bottom -50%
     opacity 0
     flex .00001
 
@@ -70,7 +70,7 @@ module.exports =
 
   &.topslide-enter, &.topslide-leave-active
     transition all 1s ease
-    top -50vh
+    top -50%
     opacity 0
     flex .00001
 

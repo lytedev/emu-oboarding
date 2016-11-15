@@ -1,12 +1,12 @@
 <template lang="pug">
-.loading.stretchy-flex-column(v-on:click="showLoadingText = !showLoadingText")
-  .debug {{ loading }}, {{ showLogo }}, {{ showLoadingText }}
-  transition(name="topslide" appear)
+.loading.stretchy-flex-column.open-bottom(v-on:click="showLoadingText = !showLoadingText")
+  //- .debug {{ loading }}, {{ showLogo }}, {{ showLoadingText }}
+  transition(name="topslide")
     logo.topslide(v-show="showLogo")
-  transition(name="topslide" appear)
+  transition(name="topslide")
     loading-text.topslide(v-show="showLoadingText" v-bind:is-loading="loading" v-bind:text="loadText")
-  transition(name="bottomslide" appear)
-    a.btn(v-show="showEnterButton" v-on:click="$router.push('verification')") Enter
+  transition(name="bottomslide")
+    a.btn.bottomslide(v-show="showEnterButton" v-on:click="gotoVerification") Enter
 </template>
 
 <script lang="coffee">
@@ -17,7 +17,7 @@ fakeLoadTime = 5000
 module.exports =
   data: ->
     showLogo: false
-    showLoadingText: true
+    showLoadingText: false
     showEnterButton: false
     loadText: "Loading"
     loading: false
@@ -52,11 +52,33 @@ module.exports =
 
       requestAnimationFrame this.update
 
+    gotoVerification: ->
+      if this.status != 'online' then return
+      if not this.online then return
+      if not this.showEnterButton then return
+
+      $router.go
+
   mounted: ->
+    # reset our data to defaults in case of weird refresh
+    this.showLogo = false
+    this.showLoadingText = false
+    this.showEnterButton = false
+    this.loadText = "Loading"
+    this.loading = false
+    this.online = "loading"
+
+    if this.status != "loading"
+      this.online = if this.status == "online" then true else false
+
     # create a promise for checking on server status
     statusPromise = new Promise (resolve, reject) =>
-      this.$watch 'status', (val, old) =>
-        if val == 'online' then resolve(val) else reject(val)
+      if this.status == 'loading'
+        this.$watch 'status', (val, old) =>
+          if val == 'online' then resolve(val) else reject(val)
+      else
+        if this.status == 'online' then resolve(this.status) else reject(this.status)
+
 
     # create a promise for the fake load time
     fakeLoadPromise = new Promise (resolve, reject) =>
@@ -119,6 +141,23 @@ module.exports =
 </script>
 
 <style lang="stylus">
+
+@keyframes borderfadein
+  0%
+    border-color transparent
+  50%
+    border-color transparent
+  100%
+    border-color #ccc
+
 .loading
-  min-width 300px
+  position relative
+  max-height 100vh
+  overflow hidden
+  min-width 280px
+  transition all 1s ease
+  border solid 0.1em #ccc
+  padding 0.5em
+  animation borderfadein 2s
+  border-radius 0.2em
 </style>
