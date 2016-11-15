@@ -3,9 +3,7 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons')
 @import '_variables'
 
-*
-*::before
-*::after
+*, *::before, *::after
 	box-sizing border-box
 
 body, html
@@ -44,13 +42,15 @@ input, textarea, .btn
 
 	font-family inherit
 	font-size inherit
-	color inherit
-	border solid 0.2rem #333
-	background #222
+	border solid 0.2rem #ccc
+	background #eee
 	border-radius 0.2rem
 	padding 0.5rem
 
 	transition border-color 0.2s ease
+
+	text-decoration none
+	color #333
 
 input[type="text"], textarea
 	&:focus, &.focus

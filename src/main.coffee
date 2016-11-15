@@ -26,10 +26,10 @@ routes = [
 		path: '/'
 		component: Root
 		children: [
-			{ path: '/', component: Loading }
-			{ path: '/verification', component: Intro }
-			{ path: '/offline', component: Offline }
-			{ path: '/Terra', component: Terra }
+			{ name: 'loading', path: '/', component: Loading }
+			{ name: 'verification', path: '/verification', component: Intro }
+			{ name: 'offline', path: '/offline', component: Offline }
+			{ name: 'terra', path: '/Terra', component: Terra }
 		]
 	}
 ]

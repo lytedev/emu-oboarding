@@ -1,7 +1,8 @@
 <template lang="pug">
-#root.stretchy-flex-column
+#root
   .debug(v-if="showDebug") {{ debugData }}
-  router-view
+  transition(name="routeswitch")
+    router-view.routeswitch
   slot
 </template>
 
@@ -30,25 +31,34 @@ module.exports =
 
 #root
   color #333
+  position relative
+  overflow visible
+  display flex
+  justify-content center
+  align-items center
+  flex-direction row
 
 .stretchy-flex-column
   text-align center
   display flex
   flex-direction column
-  justify-contents center
+  justify-content center
   align-items center
   text-align center
-  height 6em
+  flex 1
 
-  & > *
-    flex 1
+.routeswitch
+  &.routeswitch-enter
+    // left -100vw
+  &.routeswitch-leave-active
+    // left 100vw
 
-.fade-enter-active, .fade-leave-active
+.fade
   transition all 1s ease
+  opacity 1
 
-.fade-enter, .fade-leave-active
-  opacity 0
-  flex .00001
+  &.fade-enter, &.fade-leave-active
+    opacity 0
 
 .bottomslide
   transition all 1s ease
@@ -58,9 +68,33 @@ module.exports =
 
   &.bottomslide-enter, &.bottomslide-leave-active
     transition all 1s ease
-    bottom -50%
+    bottom -40vh
     opacity 0
     flex .00001
+    border-width 0
+    padding 0
+
+.topinbottomoutslide
+  transition all 1s ease
+  position relative
+  top 0
+  flex 1
+
+  &.topinbottomoutslide-enter
+    transition all 1s ease
+    top -40vh
+    opacity 0
+    border-width 0
+    padding 0
+    flex .00001
+
+  &.topinbottomoutslide-leave-active
+    transition all 1s ease
+    top 40vh
+    opacity 0
+    flex .00001
+    border-width 0
+    padding 0
 
 .topslide
   transition all 1s ease
@@ -70,8 +104,10 @@ module.exports =
 
   &.topslide-enter, &.topslide-leave-active
     transition all 1s ease
-    top -50%
+    top -40vh
     opacity 0
     flex .00001
+    border-width 0
+    padding 0
 
 </style>

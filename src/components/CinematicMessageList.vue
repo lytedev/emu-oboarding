@@ -1,5 +1,5 @@
 <template lang="pug">
-ul.console
+ul.cinematic-message-list
   li(v-for="message in messages") {{ message.text }}
 </template>
 
@@ -11,7 +11,14 @@ clickAudio.volume = 0.2
 
 module.exports =
   data: ->
-    s: 9
+    lastTime: 0
+  methods:
+    update: (timestamp) ->
+      dt = timestamp - this.lastTime
+      this.lastTime = timestamp
+
+  mounted: ->
+
 </script>
 
 <style lang="stylus">

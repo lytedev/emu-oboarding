@@ -1,12 +1,12 @@
 <template lang="pug">
-.loading.stretchy-flex-column.open-bottom(v-on:click="showLoadingText = !showLoadingText")
+.loading.stretchy-flex-column
   //- .debug {{ loading }}, {{ showLogo }}, {{ showLoadingText }}
-  transition(name="topslide")
+  transition(name="topslide" appear)
     logo.topslide(v-show="showLogo")
-  transition(name="topslide")
-    loading-text.topslide(v-show="showLoadingText" v-bind:is-loading="loading" v-bind:text="loadText")
+  transition(name="topinbottomoutslide" appear)
+    loading-text.topinbottomoutslide(v-show="showLoadingText" v-bind:is-loading="loading" v-bind:text="loadText")
   transition(name="bottomslide")
-    a.btn.bottomslide(v-show="showEnterButton" v-on:click="gotoVerification") Enter
+    a.btn.bottomslide(v-show="showEnterButton" v-on:click="gotoVerification" href="#") Enter
 </template>
 
 <script lang="coffee">
@@ -23,6 +23,8 @@ module.exports =
     loading: false
     lastTime: 0
     online: 'loading'
+
+    leaving: false
 
     countdowns: {}
 
@@ -52,14 +54,30 @@ module.exports =
 
       requestAnimationFrame this.update
 
-    gotoVerification: ->
-      if this.status != 'online' then return
-      if not this.online then return
-      if not this.showEnterButton then return
+    gotoVerification: (e, done) ->
+      console.log "gotoVerification()"
+      if not this.leaving
+        if this.status != 'online' then return
+        if not this.online then return
+        if not this.showEnterButton then return
 
-      $router.go
+        this.showEnterButton = false
+        this.showLogo = false
+        this.leaving = true
+        this.countdowns.verifyAgain =
+          time: 1000
+          callback: =>
+            this.gotoVerification()
+      else
+        if this.status != 'online' then return
+        if not this.online then return
+
+        this.$router.push
+          name: 'verification'
 
   mounted: ->
+    window.loadingComponent = this
+
     # reset our data to defaults in case of weird refresh
     this.showLogo = false
     this.showLoadingText = false
@@ -107,7 +125,9 @@ module.exports =
 
     p.then (val) =>
       this.loading = false
-      this.loadText = val.toString().toUpperCase()
+      this.loadText = val.toString()
+      # uppercase first character
+      this.loadText = this.loadText.charAt(0).toUpperCase() + this.loadText.slice(1)
       this.online = true
       this.countdowns.hideLoading =
         time: 2000
@@ -117,7 +137,9 @@ module.exports =
         callback: -> this.showEnterButton = true
     , (val) ->
       this.loading = false
-      this.loadText = val.toString().toUpperCase()
+      this.loadText = val.toString()
+      # uppercase first character
+      this.loadText = this.loadText.charAt(0).toUpperCase() + this.loadText.slice(1)
       this.online = false
       this.countdowns.goOffline =
         time: this.lastTime + 2000
@@ -128,13 +150,29 @@ module.exports =
     # initialize our countdowns
     this.countdowns.loadingText =
       time: 1000
-      callback: -> this.showLoadingText = true
+      callback: ->
+        this.showLoadingText = true
+    this.countdowns.openTop =
+      time: 1200
+      callback: ->
+        this.openTop = true
+    this.countdowns.closeTop =
+      time: 1500
+      callback: ->
+        this.openTop = false
     this.countdowns.loadingIndicator =
       time: 2000
       callback: -> this.loading = true
     this.countdowns.logo =
       time: 3000
       callback: -> this.showLogo = true
+
+    debug = false
+    if debug
+      this.countdowns = {}
+      this.showLoadingText = false
+      this.showLogo = true
+      this.showEnterButton = true
 
     # watch for a status
     requestAnimationFrame this.update
@@ -151,13 +189,16 @@ module.exports =
     border-color #ccc
 
 .loading
-  position relative
   max-height 100vh
-  overflow hidden
+  overflow visible
   min-width 280px
-  transition all 1s ease
-  border solid 0.1em #ccc
+  max-width 400px
+  width 5%
   padding 0.5em
-  animation borderfadein 2s
+  animation borderfadein 1.5s
   border-radius 0.2em
+  height 6em
+
+  div, a
+    // display none
 </style>

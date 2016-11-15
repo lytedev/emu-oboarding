@@ -49,26 +49,8 @@ store = new Vuex.Store
 				text: ''
 
 			mutations:
-				"#{mutationTypes.CONSOLE_ADD_LINE_TO_QUEUE}": (state, mutation) ->
-					if state.text != '' or state.queue != ''
-						mutation.text = "\n" + mutation.text
-					state.queue += mutation.text
-
-				"#{mutationTypes.CONSOLE_ADD_TO_QUEUE}": (state, mutation) ->
-					state.queue += mutation.text
-
-				"#{mutationTypes.CONSOLE_UPDATE_CHARS}": (state, mutation) ->
-					state.text += state.queue.substring 0, mutation.chars
-					state.queue = state.queue.substring mutation.chars
-
-				"#{mutationTypes.CONSOLE_DELETE_QUEUE_CHARS}": (state, mutation) ->
-					state.queue = state.queue.substring(0, state.queue.length - mutation.chars)
-
-				"#{mutationTypes.CONSOLE_DELETE_CHARS}": (state, mutation) ->
-					state.text = state.text.substring(0, state.text.length - mutation.chars)
-
-				"#{mutationTypes.CONSOLE_CLEAR_TEXT}": (state) -> state.text = ''
-				"#{mutationTypes.CONSOLE_CLEAR_QUEUE}": (state) -> state.queue = ''
+				n: ->
+					null
 
 	getters:
 		serverStatus: (state) -> state.server.status

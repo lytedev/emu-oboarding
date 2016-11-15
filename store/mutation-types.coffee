@@ -1,11 +1,9 @@
 # console mutations
-export CONSOLE_ADD_LINE_TO_QUEUE = 'addLineToQueue'
 export CONSOLE_ADD_TO_QUEUE = 'addToQueue'
-export CONSOLE_UPDATE_CHARS = 'updateChars'
-export CONSOLE_DELETE_CHARS = 'deleteChars'
-export CONSOLE_DELETE_QUEUE_CHARS = 'deleteQueueChars'
-export CONSOLE_CLEAR_TEXT = 'clearText'
+export CONSOLE_CLEAR_MESSAGES = 'clearMessages'
 export CONSOLE_CLEAR_QUEUE = 'clearQueue'
+export CONSOLE_ADD_MESSAGE = 'addMessage'
+export CONSOLE_MODIFY_MESSAGE = 'modifyMessage'
 
 # server mutations
 export SERVER_ONLINE = 'serverOnline'

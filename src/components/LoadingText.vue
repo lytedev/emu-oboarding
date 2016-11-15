@@ -1,7 +1,6 @@
 <template lang="pug">
 .loading-text {{ text }}
     span.visible-dots {{ visibleDots }}
-    span.invisible-dots {{ invisibleDots }}
 </template>
 
 <script lang="coffee">
@@ -15,8 +14,6 @@ module.exports =
       default: true
   data: ->
     visibleDots: ''
-    # invisibleDots: '...'
-    invisibleDots: ''
 
     ellipseTimer: 0
     ellipseCycle: 400
@@ -34,15 +31,10 @@ module.exports =
           this.ellipseTimer %= this.ellipseCycle
           if this.visibleDots.length > 2
             this.visibleDots = ''
-            # this.invisibleDots = '...'
           else
             this.visibleDots += '.'
-            this.invisibleDots = ''
-            # while this.invisibleDots.length + this.visibleDots.length < 3
-              # this.invisibleDots += '.'
       else
         this.visibleDots = ""
-        # this.invisibleDots = "..."
 
   mounted: -> requestAnimationFrame this.update
 </script>
@@ -53,6 +45,8 @@ module.exports =
   justify-contents center
   align-items center
 
-.invisible-dots
-  visibility hidden
+.visible-dots
+  display inline-block
+  max-width 0px
+  overflow visible
 </style>
