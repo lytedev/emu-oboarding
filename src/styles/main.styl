@@ -6,74 +6,76 @@
 *
 *::before
 *::after
-  box-sizing border-box
+	box-sizing border-box
 
 body, html
-  min-height 100vh
-  min-width 100vw
-  display flex
-  justify-content center
-  align-items center
+	min-height 100vh
+	min-width 100vw
+	display flex
+	justify-content center
+	align-items center
 
 @keyframes backgroundfade
-  0%
-    background-color transparent
-  100%
-    background-color #111
+	0%
+		background-color transparent
+	100%
+		background-color #111
 
 body
-  font-family 'Titillium Web', Helvetica, Arial, sans-serif
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
-  font-size 200%
-  animation backgroundfade 1s
-  background-color #111
+	font-family 'Titillium Web', Helvetica, Arial, sans-serif
+	-webkit-font-smoothing antialiased
+	-moz-osx-font-smoothing grayscale
+	font-size 200%
+	animation backgroundfade 1s
+	background-color #111
 
 .stuff
-  text-align center
-  display flex
-  justify-content center
-  align-items center
-  align-self center
-  flex-direction column
-  padding 1rem
-  max-width 16rem
-  margin 0 auto
+	text-align center
+	display flex
+	justify-content center
+	align-items center
+	align-self center
+	flex-direction column
+	padding 1rem
+	max-width 16rem
+	margin 0 auto
 
 textarea, input { outline: none; }
 
 input, textarea, .btn
-  display block
-  width 100%
-  outline none
+	display flex
+	justify-content center
+	align-items center
+	width 100%
+	outline none
 
-  font-family inherit
-  font-size inherit
-  color inherit
-  border solid 0.2rem #333
-  background #222
-  border-radius 0.2rem
-  padding 0.5rem
+	font-family inherit
+	font-size inherit
+	color inherit
+	border solid 0.2rem #333
+	background #222
+	border-radius 0.2rem
+	padding 0.5rem
 
-  transition border-color 0.2s ease
+	transition border-color 0.2s ease
 
 input[type="text"], textarea
-  &:focus, &.focus
-    border-color $brand-primary-color
+	&:focus, &.focus
+		border-color $brand-primary-color
 
 button, .btn
-  &:active, &.active
-    border-color $brand-primary-color
+	&:active, &.active
+		border-color $brand-primary-color
 
-  -webkit-tap-highlight-color alpha($brand-primary-color, 0.5)
-  tap-highlight-color alpha($brand-primary-color, 0.5)
+	-webkit-tap-highlight-color alpha($brand-primary-color, 0.5)
+	tap-highlight-color alpha($brand-primary-color, 0.5)
 
-  -webkit-touch-callout none
-  -webkit-user-select none
-  -khtml-user-select none
-  -moz-user-select none
-  -o-user-select none
-  user-select none
+	-webkit-touch-callout none
+	-webkit-user-select none
+	-khtml-user-select none
+	-moz-user-select none
+	-o-user-select none
+	user-select none
 
 textarea
-  font-size 50%
+	font-size 50%

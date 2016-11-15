@@ -7,10 +7,12 @@ html
 		meta(name="viewport" content="width=device-width, initial-scale=1")
 		title MjEy==
 	body
-		#app-mount
+		#mount
 			router-view
+
 		audio#ambience(loop autoplay)
 			source(src="/static/audio/ambience-long.ogg" type="audio/ogg")
+
 		audio#button-press
 			source(src="/static/audio/button.ogg" type="audio/ogg")
 		audio#click(loop autoplay muted)

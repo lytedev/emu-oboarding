@@ -6,7 +6,6 @@ VueRouter = require 'vue-router'
 
 Vue.config.debug = true
 
-
 Vue.use VueRouter
 Vue.use Vuex
 
@@ -42,6 +41,6 @@ router = new VueRouter
 app = new Vue
 	router: router
 	store: store
-.$mount '#app-mount'
+.$mount '#mount'
 
 require './analytics.coffee'
