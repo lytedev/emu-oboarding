@@ -30,6 +30,10 @@ class RPGText
 		else
 			return @addNewMessage undefined, true
 	
+	addMessage: (text, justReturn = false) ->
+		@addNewMessage
+			text: text
+
 	addNewMessage: (opts, justReturn = false) ->
 		msg = {}
 		if opts?

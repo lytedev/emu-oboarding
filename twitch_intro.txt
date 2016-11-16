@@ -1,0 +1,17 @@
+Hi! I'm working on an online ARG/"pen and paper"-style RPG. The app I'm working
+on now is the introduction to my players about the game.
+
+The concept is that incredibly powerful godlike aliens have existed for a long
+time and protected young planets with life such as earth. They have since
+pretty much killed eachother off. However, the tech and power remains...
+
+The players will be contacted by an old and glitchy A.I that is supposed to
+reach out to worlds once they reach a certain technological point (interstellar
+travel) and introduce the universe at large. Due to a glitch, it reaches out to
+my players and gives them control of avatars. The game will play via email or
+chat or a web app that I make (iterations on the play interface can be
+explained as the A.I learning to better serve its users). Errors or slowness on
+my part can be explained by A.I glitches or immense
+interplanetary/intergalactic latencies. Gameplay will, at its most basic
+levels, be just like playing DnD online.
+

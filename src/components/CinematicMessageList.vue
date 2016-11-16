@@ -40,10 +40,9 @@ module.exports =
 		console.log "CinematicMessageList mounted()"
 		this.addCountdown 2000, ->
 			console.log "Queueing test lines..."
-			this.rpgText.queueLine "Hey! This message is being parsed!"
-			this.rpgText.queueLine "This is a second line... I hope."
-
-			this.rpgText.queueLine "This is the third line. It is really really really really really really really really really really really really really really really really really really really really long"
+			this.rpgText.addMessage "This is a test line of sufficient length."
+			this.rpgText.queueString "This is the third line. It is really really really really really really really really really really really really really really really really really really really really long"
+			this.rpgText.queueString "\nThis is the third line. It is really areally really really really really really really really really really really really really really really really really really really long"
 
 			this.updateText = true
 		requestAnimationFrame this.update
