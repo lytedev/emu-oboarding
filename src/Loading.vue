@@ -51,7 +51,7 @@ module.exports =
 					this.gotoVerification()
 
 				console.log "Hit Button"
-				# TODO: mutate store saying we hit the button
+				this.$store.commit mutationTypes.INTRO_ENTER
 				# TODO: fire user event required functions
 
 				e.preventDefault?()
@@ -133,7 +133,8 @@ module.exports =
 		this.addCountdown 2000, -> this.loading = true
 		this.addCountdown 3000, -> this.showLogo = true
 
-		debug = true
+		# TODO: remove this debug code
+		debug = false
 		if debug
 			this.clearCountdowns()
 			this.showLoadingText = false

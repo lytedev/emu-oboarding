@@ -1,9 +1,7 @@
 # console mutations
-export CONSOLE_ADD_TO_QUEUE = 'addToQueue'
-export CONSOLE_CLEAR_MESSAGES = 'clearMessages'
-export CONSOLE_CLEAR_QUEUE = 'clearQueue'
-export CONSOLE_ADD_MESSAGE = 'addMessage'
-export CONSOLE_MODIFY_MESSAGE = 'modifyMessage'
+export SHARED_MESSAGE_LIST_ADD_TO_QUEUE = 'appendToQueue'
+export SHARED_MESSAGE_LIST_ADD_LINE_TO_QUEUE = 'appendLineToQueue'
+export SHARED_MESSAGE_LIST_CLEAR_QUEUE = 'clearQueue'
 
 # server mutations
 export SERVER_ONLINE = 'serverOnline'

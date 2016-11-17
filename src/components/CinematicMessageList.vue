@@ -1,7 +1,8 @@
 <template lang="pug">
 .cinematic-message-list-container
+	//- .debug {{ verified }}
 	ul.message-list(v-bind:class="{ 'has-caret': caret }")
-		li(v-for="message in messages") {{ message.text }}
+		li(v-for="message in messages" v-html="message.text")
 </template>
 
 <script lang="coffee">
@@ -13,6 +14,8 @@ clickAudio.volume = 0.2
 RPGText = require './RPGText.coffee'
 
 module.exports =
+	props: ['verified', 'callbacks']
+
 	mixins: [
 		require '../mixins/Countdown.coffee'
 	]
@@ -22,29 +25,36 @@ module.exports =
 		caretTimer: 0
 		caretPeriod: 400
 		rpgText: new RPGText('`', 50)
+		lastLength: 0
 
 	computed:
 		caret: ->
 			this.rpgText.caret
-
 		messages: ->
 			this.rpgText.messages
-
+		sharedQueue: ->
+			this.$store.state.sharedMessageList.queue
+	watch:
+		sharedQueue: (val, old) ->
+			if val == '' then return
+			this.rpgText.queueString val
+			this.$store.commit mutationTypes.SHARED_MESSAGE_LIST_CLEAR_QUEUE
+			
 	methods:
 		update: (timestamp) ->
 			requestAnimationFrame this.update # queue next update
 			this.rpgText.update timestamp # update messages
+			msgList = this.$el.childNodes[0]
+			msgList.scrollTop = msgList.scrollHeight
 
 	mounted: ->
-		this.rpgText = new RPGText('`', 50)
-		console.log "CinematicMessageList mounted()"
-		this.addCountdown 2000, ->
-			console.log "Queueing test lines..."
-			this.rpgText.addMessage "This is a test line of sufficient length."
-			this.rpgText.queueString "This is the third line. It is really really really really really really really really really really really really really really really really really really really really long"
-			this.rpgText.queueString "\nThis is the third line. It is really areally really really really really really really really really really really really really really really really really really really long"
+		this.clearCountdowns()
 
-			this.updateText = true
+		# if the user hasn't clicked the enter button, send them back home
+		this.rpgText = new RPGText('`', 50)
+		this.rpgText.callbacks = this.callbacks
+		# console.log "CinematicMessageList mounted()"
+
 		requestAnimationFrame this.update
 
 </script>
@@ -54,23 +64,25 @@ module.exports =
 
 .cinematic-message-list-container
 	list-style none
-	padding 0.25em
+	padding 0.125em
 	text-align left
-	font-size 60%
 	color #fff
 	max-width 600px
 	width 100%
+	overflow hidden
 
 	ul.message-list
+		font-size 50%
 		list-style none
 		box-sizing border-box
 		background #222
-		border solid 0.1em #444
-		border-radius 0.1em
+		border solid 0.2em #444
+		border-radius 0.2em
 		width 100%
 		height 100%
 		margin 0
 		padding 0.25em
+		overflow hidden
 
 		&.has-caret
 			li:last-of-type::after
@@ -84,4 +96,7 @@ module.exports =
 			
 	.caret
 		color $brand-primary-color
+
+.flex-hard
+	flex 7
 </style>

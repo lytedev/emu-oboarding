@@ -21,10 +21,13 @@ Root = require './Root.vue'
 Terra = require './components/Terra.vue'
 store = require '../store/index.coffee'
 
+Vue.prototype.$geb = new Vue()
+
 routes = [
 	{
 		path: '/'
 		component: Root
+		name: 'index'
 		children: [
 			{ name: 'loading', path: '/', component: Loading }
 			{ name: 'verification', path: '/verification', component: Intro }

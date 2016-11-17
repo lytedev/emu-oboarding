@@ -1,6 +1,6 @@
 <template lang="pug">
 #root
-	.debug(v-if="showDebug") {{ debugData }}
+	//- .debug {{ debugData }}
 	//- transition
 	router-view
 	slot
@@ -8,8 +8,6 @@
 
 <script lang="coffee">
 module.exports =
-	data: ->
-		showDebug: false
 	computed:
 		debugData: ->
 			lspin: localStorage.pin

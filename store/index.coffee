@@ -2,10 +2,10 @@ Vuex = require 'vuex'
 
 import * as mutationTypes from './mutation-types.coffee'
 
-if not localStorage.pin?
+if not localStorage.pin? and false
 	localStorage.pin = ''
 
-if not localStorage.verified?
+if not localStorage.verified? and false
 	localStorage.verified = false
 
 store = new Vuex.Store
@@ -43,14 +43,17 @@ store = new Vuex.Store
 						state.status = 'offline'
 					else
 						state.status = 'online'
-		console:
+		sharedMessageList:
 			state:
 				queue: ''
-				text: ''
 
 			mutations:
-				n: ->
-					null
+				"#{mutationTypes.SHARED_MESSAGE_LIST_ADD_TO_QUEUE}": (state, mutation) ->
+					state.queue += mutation.content
+				"#{mutationTypes.SHARED_MESSAGE_LIST_ADD_LINE_TO_QUEUE}": (state, mutation) ->
+					state.queue += "\n" + mutation.content
+				"#{mutationTypes.SHARED_MESSAGE_LIST_CLEAR_QUEUE}": (state, mutation) ->
+					state.queue = ''
 
 	getters:
 		serverStatus: (state) -> state.server.status

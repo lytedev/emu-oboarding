@@ -1,5 +1,11 @@
 Hi! I'm working on an online ARG/"pen and paper"-style RPG. The app I'm working
-on now is the introduction to my players about the game.
+on now is the introduction to my players about the game. It will collect
+contact information and be able to push notifications to the players' devices,
+letting them know something is happening or that their interaction is needed.
+
+Should be able to turn the mic on in about 30ish minutes!
+
+Right now, I'm working on the numpad entry component.
 
 The concept is that incredibly powerful godlike aliens have existed for a long
 time and protected young planets with life such as earth. They have since
@@ -15,3 +21,4 @@ my part can be explained by A.I glitches or immense
 interplanetary/intergalactic latencies. Gameplay will, at its most basic
 levels, be just like playing DnD online.
 
+Music is in the top-left corner most of the time. Enjoy or mute!
