@@ -42,15 +42,20 @@ input, textarea, .btn
 
 	font-family inherit
 	font-size inherit
-	border solid 0.2rem #ccc
-	background #eee
+	border solid 0.2rem #444
+	background #222
 	border-radius 0.2rem
 	padding 0.5rem
 
 	transition border-color 0.2s ease
 
 	text-decoration none
-	color #333
+	color #fff
+
+	&.light
+		border-color #ccc
+		background-color #eee
+		color #333
 
 input[type="text"], textarea
 	&:focus, &.focus

@@ -59,13 +59,18 @@ module.exports =
 .intro-numpad-container
 	padding 0.125em
 	padding-bottom 0
+	display flex
+	width 60%
+	justify-content center
+	flex-wrap wrap
+	align-items center
 
 	.intro-numpad
-		width 80%
 		display flex
 		justify-content space-between
 		align-items space-between
 		flex-wrap wrap
+		/* max-width 600px
 		text-align center
 		list-style none
 		box-sizing border-box
@@ -73,10 +78,9 @@ module.exports =
 		border solid 0.1em #444
 		border-radius 0.1em
 		width 100%
-		height 100%
 		margin 0
 		padding 0.25em
-		padding-bottom 0
+		padding-bottom 0 */
 
 		.pin-input
 			text-align center
@@ -87,4 +91,9 @@ module.exports =
 			width 30%
 			margin-bottom 0.25em
 			cursor pointer
+
+	&.topslide
+		max-height 100%
+		flex 3
+
 </style>

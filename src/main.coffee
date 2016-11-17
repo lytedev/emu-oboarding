@@ -18,7 +18,7 @@ Intro = require './Intro.vue'
 Loading = require './Loading.vue'
 Offline = require './Offline.vue'
 Root = require './Root.vue'
-Terra = require './components/Terra.vue'
+Terra = require './Terra.vue'
 store = require '../store/index.coffee'
 
 Vue.prototype.$geb = new Vue()

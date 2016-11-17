@@ -4,12 +4,18 @@ import * as mutationTypes from './mutation-types.coffee'
 
 if not localStorage.pin? and false
 	localStorage.pin = ''
-
 if not localStorage.verified? and false
 	localStorage.verified = false
+if not localStorage.colors? and false
+	localStorage.colors = {}
+
 
 store = new Vuex.Store
 	modules:
+		misc:
+			state:
+				colors:
+					bg: '#fff'
 		intro:
 			state:
 				entered: false

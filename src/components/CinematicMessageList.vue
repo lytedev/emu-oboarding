@@ -8,9 +8,6 @@
 <script lang="coffee">
 mutationTypes = require '../../store/mutation-types.coffee'
 
-clickAudio = document.getElementById "click"
-clickAudio.volume = 0.2
-
 RPGText = require './RPGText.coffee'
 
 module.exports =
@@ -26,6 +23,7 @@ module.exports =
 		caretPeriod: 400
 		rpgText: new RPGText('`', 50)
 		lastLength: 0
+		lastUpdating: false
 
 	computed:
 		caret: ->
@@ -46,6 +44,11 @@ module.exports =
 			this.rpgText.update timestamp # update messages
 			msgList = this.$el.childNodes[0]
 			msgList.scrollTop = msgList.scrollHeight
+
+			if this.rpgText.isUpdating != this.lastUpdating
+				this.$emit 'messages-updating-change', this.rpgText.isUpdating
+				
+			this.lastUpdating = this.rpgText.isUpdating
 
 	mounted: ->
 		this.clearCountdowns()
@@ -96,7 +99,4 @@ module.exports =
 			
 	.caret
 		color $brand-primary-color
-
-.flex-hard
-	flex 7
 </style>

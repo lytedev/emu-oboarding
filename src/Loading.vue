@@ -6,7 +6,7 @@
 	transition(name="topinbottomoutslide" appear)
 		loading-text.topinbottomoutslide(v-show="showLoadingText" v-bind:is-loading="loading" v-bind:text="loadText")
 	transition(name="bottomslide")
-		a.btn.bottomslide.enter-button(v-show="showEnterButton" v-on:click="gotoVerification" href="#") Enter
+		a.btn.bottomslide.enter-button.light(v-show="showEnterButton" v-on:click="gotoVerification" href="#") Enter
 </template>
 
 <script lang="coffee">
@@ -50,7 +50,24 @@ module.exports =
 				this.addCountdown 2000, ->
 					this.gotoVerification()
 
-				console.log "Hit Button"
+				# console.log "Hit Button"
+				if (document.fullScreenElement && document.fullScreenElement != null) or (not document.mozFullScreen && not document.webkitIsFullScreen)
+					if document.documentElement.requestFullScreen?
+						document.documentElement.requestFullScreen()
+					else if document.documentElement.mozRequestFullScreen?
+						document.documentElement.mozRequestFullScreen()
+					else if document.documentElement.webkitRequestFullScreen?
+						document.documentElement.webkitRequestFullScreen()
+
+				document.getElementById('ambience').play()
+				buttonPress = document.getElementById('button-press')
+				buttonPress.volume = 0.4
+				buttonPress.play()
+				typing = document.getElementById('click')
+				typing.volume = 0
+				typing.muted = true
+				typing.play()
+
 				this.$store.commit mutationTypes.INTRO_ENTER
 				# TODO: fire user event required functions
 
@@ -59,7 +76,7 @@ module.exports =
 				if this.status != 'online' then return
 				if not this.online then return
 
-				console.log "Navigating to verification!"
+				# console.log "Navigating to verification!"
 
 				this.$router.push
 					name: 'verification'
@@ -72,6 +89,10 @@ module.exports =
 		this.loadText = "Loading"
 		this.loading = false
 		this.online = "loading"
+
+		#this.showLogo = true
+		#this.showEnterButton = true
+		#return
 
 		if this.status != "loading"
 			this.online = if this.status == "online" then true else false

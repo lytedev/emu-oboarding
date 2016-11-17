@@ -26,6 +26,9 @@ class RPGText
 			sleep: (ms) -> @sleeping = ms
 			speed: (ms) -> @speed = ms
 			reset: @reset
+			class: (classString) ->
+				@getCurrentMessage().text += '<span class="'+classString+'">'
+				@stylesDepth++
 			style: (css) ->
 				@getCurrentMessage().text += '<span style="'+css+'">'
 				@stylesDepth++
@@ -182,8 +185,11 @@ class RPGText
 
 		@charTimer += dt
 
+		@isUpdating = false
+
 		# if it's time to draw a character and we have characters to draw
 		if @charTimer >= @speed and @queue != ''
+			@isUpdating = true
 			if @speed == 0
 				# if we're rendering from the queue instantly, we just load the whole queue
 				numChars = @queue.length

@@ -1,5 +1,5 @@
 <template lang="pug">
-#root
+#root(v-bind:style="{ 'backgroundColor': colors.bg }")
 	//- .debug {{ debugData }}
 	//- transition
 	router-view
@@ -8,6 +8,9 @@
 
 <script lang="coffee">
 module.exports =
+	data: ->
+		colors:
+			bg: '#fff'
 	computed:
 		debugData: ->
 			lspin: localStorage.pin
@@ -15,6 +18,7 @@ module.exports =
 			entered: this.$store.getters.introEntered
 			pin: this.$store.getters.introPin
 			verified: this.$store.getters.introVerified
+			colors: this.$store.getters.colors
 </script>
 
 <style lang="stylus">
