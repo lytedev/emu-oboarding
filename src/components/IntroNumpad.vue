@@ -61,6 +61,7 @@ module.exports =
 	padding-bottom 0
 	display flex
 	width 60%
+	max-width 500px
 	justify-content center
 	flex-wrap wrap
 	align-items center

@@ -42,12 +42,12 @@ module.exports =
 	mounted: ->
 		# TODO: remove and false
 		if not this.$store.getters.introEntered
-			this.$router.push path: '/'
+			this.$router.replace '/'
 		else
 			# console.log "Intro mounted()"
 			this.addCountdown 2000, -> this.showMessages = true
 
-			if this.pin.length > 0 and this.verified == true
+			if this.pin != '' and this.pin != false and this.verified == true
 				this.bypass = true
 			else
 				this.bypass = false
@@ -91,10 +91,9 @@ module.exports =
 			# if the user has entered a pin previously successfully, redirect them to post-verification
 			if this.bypass
 				this.addCountdown 5000, ->
-					this.addCMLine '`speed{0}Returning user detected. `sleep{1000}`speed{50}Redirecting...'
+					this.addCMLine '`speed{0}Returning user detected. `sleep{1000}`speed{50}Redialing operator...'
 					this.addCountdown 8000, =>
-						# console.log "toTerra()"
-						this.toTerra()
+						this.pinSubmit this.pin.toString()
 			else
 				this.addCountdown 5000, ->
 					# TODO: Fancier formatting?
@@ -127,6 +126,7 @@ module.exports =
 					if data.verification == "accepted"
 						this.addCMLine '`speed{0}PIN Accepted.`callback{"successSound"}`sleep{500}`speed{50} Redirecting...'
 						this.$store.commit mutationTypes.INTRO_SET_VERIFIED, { verified: true }
+						this.$store.commit mutationTypes.INTRO_SET_GREETING_MESSAGE, { message: data.message }
 						this.$ws.removeEventListener 'message', this.pinSubmitWebsocketReply
 						this.addCountdown 5000, =>
 							console.log "toTerra()"
@@ -146,7 +146,7 @@ module.exports =
 			# send pin to API
 			this.canSubmit = false
 			this.$ws.send "dial: #{pin}"
-			this.$store.commit mutationTypes.INTRO_SET_PIN, { pin: pin }
+			this.$store.commit mutationTypes.INTRO_SET_PIN, { pin: parseFloat pin }
 			this.addCMLine "Submitted #{new Array(pin.length + 1).join('*')} - Awaiting response`speed{400}..."
 			this.$geb.$emit 'clear-pin'
 

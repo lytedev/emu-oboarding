@@ -68,6 +68,14 @@ module.exports =
 				typing.muted = true
 				typing.play()
 
+				error = document.getElementById('error-sound')
+				error.volume = 0.0
+				error.play()
+
+				success = document.getElementById('success-sound')
+				success.volume = 0.0
+				success.play()
+
 				this.$store.commit mutationTypes.INTRO_ENTER
 				# TODO: fire user event required functions
 

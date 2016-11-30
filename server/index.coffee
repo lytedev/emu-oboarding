@@ -19,21 +19,11 @@ module.exports = (app) ->
 			ws.send msg
 
 	messageHandlers =
-		verifydial: (ws, msg) ->
-			console.log "VERIFYDIAL REQUEST", msg
-			if msg == '212'
-				data =
-					verification: 'accepted'
-				fs.readFile './data/post-verification-introduction.txt', 'utf8', (err, contents) ->
-					data.text = contents
-					ws.send JSON.stringify data
-			else
-				ws.send JSON.stringify { verification: 'denied' }
-
 		dial: (ws, msg) ->
 			console.log "DIAL REQUEST", msg
 			if msg == '212'
-				ws.send JSON.stringify { verification: 'accepted' }
+				fs.readFile './data/post-verification-introduction.txt', 'utf8', (err, contents) ->
+					ws.send JSON.stringify { verification: 'accepted', message: contents }
 			else
 				ws.send JSON.stringify { verification: 'denied' }
 

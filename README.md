@@ -26,7 +26,8 @@ npm test
 
 ## To Do
 
-* Finish email signup thing
+* Finish email signup form
 * Email signup should install "app" to phone and enable notifications
-* Test notification install system on phone
+* Test notification system
+* Nice output formatting
 * Escape user input backticks on the server side since it controls console commands

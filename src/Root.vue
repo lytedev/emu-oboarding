@@ -1,6 +1,6 @@
 <template lang="pug">
 #root(v-bind:style="{ 'backgroundColor': colors.bg }")
-	//- .debug {{ debugData }}
+	.debug {{ debugData }}
 	//- transition
 	router-view
 	slot
@@ -19,17 +19,21 @@ module.exports =
 			pin: this.$store.getters.introPin
 			verified: this.$store.getters.introVerified
 			colors: this.$store.getters.colors
+			gm: this.$store.state.intro.greeting
 </script>
 
 <style lang="stylus">
 .debug
 	position fixed
 	bottom 0
+	opacity 0.8
 	right 0
-	padding 0.5rem 1rem
+	left 0
 	background #023
 	color #fff
 	z-index 100000
+	font-size 16px
+	padding 0.5rem 1rem
 
 #root
 	color #333

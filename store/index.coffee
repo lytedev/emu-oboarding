@@ -2,13 +2,12 @@ Vuex = require 'vuex'
 
 import * as mutationTypes from './mutation-types.coffee'
 
-if not localStorage.pin? and false
-	localStorage.pin = ''
-if not localStorage.verified? and false
-	localStorage.verified = false
-if not localStorage.colors? and false
-	localStorage.colors = {}
-
+if not localStorage.pin?
+	localStorage.pin = '""'
+if not localStorage.verified?
+	localStorage.verified = "false"
+if not localStorage.colors?
+	localStorage.colors = '{}'
 
 store = new Vuex.Store
 	modules:
@@ -19,20 +18,24 @@ store = new Vuex.Store
 		intro:
 			state:
 				entered: false
-				pin: localStorage.pin
-				verified: localStorage.verified
+				pin: JSON.parse localStorage.pin
+				verified: JSON.parse localStorage.verified
+				greeting: ''
 
 			mutations:
+				"#{mutationTypes.INTRO_SET_GREETING_MESSAGE}": (state, mutation) ->
+					state.greeting = mutation.message
+
 				"#{mutationTypes.INTRO_ENTER}": (state, mutation) ->
 					state.entered = true
 
 				"#{mutationTypes.INTRO_SET_PIN}": (state, mutation) ->
 					state.pin = mutation.pin
-					localStorage.pin = state.pin
+					localStorage.pin = JSON.stringify state.pin
 
 				"#{mutationTypes.INTRO_SET_VERIFIED}": (state, mutation) ->
 					state.verified = mutation.verified
-					localStorage.verified = state.verified
+					localStorage.verified = JSON.stringify state.verified
 		server:
 			state:
 				status: 'loading'
